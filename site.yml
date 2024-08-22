@@ -1,0 +1,28 @@
+---
+
+- hosts: web_servers
+  become: true
+  pre_tasks:
+ 
+  - name: install updates on Ubuntu
+    apt:
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu" 
+
+  - name: upgrade all package on ubuntu
+    apt:
+      upgrade: dist
+    when: ansible_distribution == "Ubutnu"
+
+- hosts: db_servers
+  become: true
+  tasks:
+
+  - name: update and install apache and php packages
+    package: 
+      name: 
+         - apache2
+         - libapache2-mod-php
+      state: latest
+      update_cache: true
+    when: ansible_distribution == "Ubuntu"
