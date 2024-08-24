@@ -5,11 +5,13 @@
   pre_tasks:
  
   - name: install updates on Ubuntu
+    tags: always
     apt:
       update_cache: yes
     when: ansible_distribution == "Ubuntu" 
 
   - name: upgrade all package on ubuntu
+    tags: always
     apt:
       upgrade: dist
     when: ansible_distribution == "Ubutnu"
@@ -19,6 +21,7 @@
   tasks:
 
   - name: update and install apache and php packages
+    tags: apache,apache2,ubuntu
     package: 
       name: 
          - apache2
