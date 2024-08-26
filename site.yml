@@ -1,5 +1,9 @@
 ---
 
+- hosts: all
+  become: true
+  tasks:
+
 - hosts: web_servers
   become: true
   pre_tasks:
@@ -8,6 +12,7 @@
     tags: always
     apt:
       update_cache: yes
+    changed_when: false
     when: ansible_distribution == "Ubuntu" 
 
   - name: upgrade all package on ubuntu
