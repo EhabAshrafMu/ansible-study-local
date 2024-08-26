@@ -3,4 +3,12 @@
   authorized_key:
     user: simone
     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM+InM7PftE1IBY0Rk58ZGM7hvgY8GH7SpHLKUcMK1ME Ansible"
-
+    
+- name: change e-mail add for admin
+  tags: apache,apache2
+  lineinfile:
+    path: /etc/apache2/sites-available/000-default.conf
+    regexp: 'ServerAdmin'
+    line: ServerAdmin somebody@somewhere.org
+  when: ansible_distribution == "Ubuntu"
+  notify: restart_apache
