@@ -12,3 +12,14 @@
     line: ServerAdmin somebody@somewhere.org
   when: ansible_distribution == "Ubuntu"
   notify: restart_apache
+
+
+- name: generat sshd_config file form template
+  tags: ssh
+  template: 
+    src: "{{ ssh_template_file }}"
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart_sshd
